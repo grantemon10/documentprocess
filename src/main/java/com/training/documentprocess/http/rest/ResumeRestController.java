@@ -43,7 +43,7 @@ public class ResumeRestController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping("/registerResume")
-    public String readJSON(@RequestBody Candidate candidate){
+    public String registerResume(@RequestBody Candidate candidate){
         log.info(candidate.toString());
         log.info(candidate.getOrganization().toString());
 //        Organization organizationByName = organizationService.findOrganizationByName(candidate.getOrganization());
