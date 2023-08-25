@@ -2,7 +2,6 @@ package com.training.documentprocess.http.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.training.documentprocess.database.entity.Candidate;
-import com.training.documentprocess.database.entity.Organization;
 import com.training.documentprocess.service.CandidateService;
 import com.training.documentprocess.service.OrganizationService;
 import com.training.documentprocess.service.SkillService;
@@ -25,8 +24,6 @@ public class ResumeRestController {
     private final CandidateService candidateService;
     private final OrganizationService organizationService;
     private final SkillService skillService;
-
-    private final ObjectMapper objectMapper;
 
     @RequestMapping("/healthcheck")
     public String healthcheck(){

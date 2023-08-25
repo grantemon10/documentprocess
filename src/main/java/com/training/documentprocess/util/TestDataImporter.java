@@ -1,7 +1,5 @@
 package com.training.documentprocess.util;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.training.documentprocess.database.entity.*;
 import com.training.documentprocess.service.CandidateService;
 import com.training.documentprocess.service.OrganizationService;
@@ -54,17 +52,6 @@ public class TestDataImporter {
                 "I'm very good manager",
                 Reputation.BAD
         );
-
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        try {
-            log.info("UserInJson");
-            log.info(objectMapper.writeValueAsString(ivanIvanovich));
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-
-
     }
 
 

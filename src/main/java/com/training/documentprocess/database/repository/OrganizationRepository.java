@@ -1,8 +1,6 @@
 package com.training.documentprocess.database.repository;
 
-import com.training.documentprocess.database.entity.Candidate;
 import com.training.documentprocess.database.entity.Organization;
-import com.training.documentprocess.database.entity.Reputation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
