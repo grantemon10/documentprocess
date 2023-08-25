@@ -1,10 +1,11 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/documentprocess
-    username: postgres
-    password: postgres
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:h2:mem:mydb
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
   jpa:
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
     properties.hibernate:
       batch_size: 50
       fetch_size: 50
