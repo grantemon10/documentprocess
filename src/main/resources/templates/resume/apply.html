@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<form th:action="@{/api/v1/resume/readJSON}" enctype="multipart/form-data" method="post" id="sample-form">
+    <label for="fullname">ФИО:
+        <input id="fullname" type="text" name="fullname">
+    </label><br><br>
+    <label for="organization">Последнее место работы:
+        <input id="organization" type="text" name="organization">
+    </label><br><br>
+    <label for="title">Желаемая должность:
+        <input id="title" type="text" name="title">
+    </label><br><br>
+    <select name="level" id="level">
+        <option th:each="levelOpt : ${T(com.training.documentprocess.database.entity.Level).values()}"
+                th:value="${levelOpt}" th:text="${levelOpt}"></option>
+    </select><br><br>
+    <label for="salary">Желаемая зарплата:
+        <input id="salary" type="text" name="salary">
+    </label><br><br>
+    <div>
+        <div th:each="skill: ${skills}">
+            <input type="checkbox" th:id="${skill.id}" th:name="skills" th:value="${skill.id}"/>
+            <label th:for="${skill.id}" th:text="${skill.name}"></label><br>
+        </div>
+    </div>
+    <br>
+    <label for="description">О себе:
+        <input id="description" type="text" name="description">
+    </label><br>
+
+    <button type="submit">Register</button>
+</form>
+
+
+<script>
+    function handleSubmit(event) {
+        event.preventDefault();
+
+        const data = new FormData(event.target);
+
+        var jsonData = {};
+        jsonData["fullname"] = data.get("fullname");
+
+        var organizationJson = {}
+
+        if (data.get("organization")) {
+           organizationJson["id"] = null;
+           organizationJson["name"] = data.get("organization");
+           organizationJson["candidates"] = null;
+           organizationJson["reputation"] = null;
+           jsonData["organization"] = organizationJson;
+        } else {
+           jsonData["organization"] = null;
+        }
+
+        jsonData["title"] = data.get("title");
+        jsonData["level"] = data.get("level");
+        jsonData["salary"] = data.get("salary");
+
+        var skillsJson = []
+        var tempSkills = data.getAll("skills");
+        tempSkills.forEach(obj => {
+             Object.entries(obj).forEach(([key, value]) => {
+                 var tempVal = value;
+                 skillsJson.push({id:tempVal,name:null,candidate:null})
+             });
+         });
+
+        jsonData["skills"] = skillsJson;
+        jsonData["description"] = data.get("description");
+
+
+
+        var resultJson = JSON.stringify(jsonData);
+
+        console.log(resultJson);
+
+        var actionUrl = $('#sample-form').attr('action');
+
+        $.ajax({
+            type: "POST",
+            url: actionUrl,
+            data: resultJson,
+            success: function(){},
+            dataType: "json",
+            contentType : "application/json"
+        });
+    }
+
+    const form = document.getElementById("sample-form");
+    form.addEventListener("submit", handleSubmit);
+
+</script>
+</body>
+</html>
